@@ -21,7 +21,7 @@ namespace ConsoleApp
 
         private static void AddSamuraie()
         {
-            var samuraie = new Samurai { Name = "Sampson " };
+            var samuraie = new Samurai { Name = "Sirwan" };
             context.Samuraies.Add(samuraie);
             context.SaveChanges();
         }
@@ -29,7 +29,7 @@ namespace ConsoleApp
         private static void GetSamuraies(string text)
         {
             var samuraies = context.Samuraies.ToList();
-            Console.Write($"${text}: Samurai count is ${samuraies.Count}");
+            Console.WriteLine($"{text}: Samurai count is {samuraies.Count}");
             foreach (var samuraie in samuraies)
             {
                 Console.WriteLine(samuraie.Name);
