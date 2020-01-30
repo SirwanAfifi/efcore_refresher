@@ -14,5 +14,10 @@ namespace Data
             optionsBuilder.UseSqlite("Data source=samurai.db");
             base.OnConfiguring(optionsBuilder);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SamuraiBattle>().HasKey(s => new { s.SamuraiId, s.BattleId });
+        }
     }
 }
