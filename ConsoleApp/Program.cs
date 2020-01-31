@@ -13,10 +13,19 @@ namespace ConsoleApp
         {
             context.Database.EnsureCreated();
             GetSamuraies("Before Add:");
-            AddSamuraie();
+            InsertMultipleSamuraies();
             GetSamuraies("After Add:");
             Console.Write("Press any key...");
             Console.ReadKey();
+        }
+
+        private static void InsertMultipleSamuraies()
+        {
+            var samuraie = new Samurai { Name = "Sirwan" };
+            var samuraie2 = new Samurai { Name = "Sana" };
+
+            context.Samuraies.AddRange(samuraie, samuraie2);
+            context.SaveChanges();
         }
 
         private static void AddSamuraie()
