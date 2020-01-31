@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Domain;
@@ -13,9 +14,11 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
             context.Database.EnsureCreated();
-            GetSamuraies("Before Add:");
+            /*GetSamuraies("Before Add:");
             InsertMultipleSamuraies();
             GetSamuraies("After Add:");
+            */
+            InsertNewSamuraiWithAQuote();
             Console.Write("Press any key...");
             Console.ReadKey();
         }
@@ -46,6 +49,20 @@ namespace ConsoleApp
             // }
 
             var samuraies = context.Samuraies.Where(s => EF.Functions.Like(s.Name, "J%")).ToList();
+        }
+
+        private static void InsertNewSamuraiWithAQuote()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kambei Shimada",
+                Quotes = new List<Quote>
+                {
+                    new Quote { Text = "I've come to save you" }
+                }
+            };
+            context.Samuraies.Add(samurai);
+            context.SaveChanges();
         }
     }
 }
