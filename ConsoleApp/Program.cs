@@ -2,6 +2,7 @@
 using System.Linq;
 using Data;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp
 {
@@ -37,12 +38,14 @@ namespace ConsoleApp
 
         private static void GetSamuraies(string text)
         {
-            var samuraies = context.Samuraies.ToList();
-            Console.WriteLine($"{text}: Samurai count is {samuraies.Count}");
-            foreach (var samuraie in samuraies)
-            {
-                Console.WriteLine(samuraie.Name);
-            }
+            // var samuraies = context.Samuraies.ToList();
+            // Console.WriteLine($"{text}: Samurai count is {samuraies.Count}");
+            // foreach (var samuraie in samuraies)
+            // {
+            //     Console.WriteLine(samuraie.Name);
+            // }
+
+            var samuraies = context.Samuraies.Where(s => EF.Functions.Like(s.Name, "J%")).ToList();
         }
     }
 }
