@@ -17,8 +17,8 @@ namespace ConsoleApp
             /*GetSamuraies("Before Add:");
             InsertMultipleSamuraies();
             GetSamuraies("After Add:");
-            */
             InsertNewSamuraiWithAQuote();
+            */
             Console.Write("Press any key...");
             Console.ReadKey();
         }
@@ -64,5 +64,34 @@ namespace ConsoleApp
             context.Samuraies.Add(samurai);
             context.SaveChanges();
         }
+
+        #region Methods to Load related data
+        private static void EagerLoadSamuraiWithQuotes()
+        {
+            var samuraiWithQuotes = context.Samuraies.Include(s => s.Quotes).ToList();
+        }
+        private static void ProjectSomeProperties()
+        {
+            var someProperties = context.Samuraies.Select(s => new { s.Id, s.Name }).ToList();
+        }
+        private static void ProjectSomePropertiesWithQuotes()
+        {
+            var somePropertiesWithQuotes = context.Samuraies.Select(s => new { s.Id, s.Name, s.Quotes.Count }).ToList();
+        }
+        private static void ExplicitLoadQuotes()
+        {
+            var samurai = context.Samuraies.FirstOrDefault(s => s.Name.Contains("Sirwan"));
+            context.Entry(samurai).Collection(s => s.Quotes).Load();
+            context.Entry(samurai).Reference(s => s.Horse).Load();
+        }
+        private static void LazyLoadQuotes()
+        {
+            var samurai = context.Samuraies.FirstOrDefault(s => s.Name.Contains("Sirwan"));
+
+            var quoteCount = samurai.Quotes.Count();
+        }
+
+        #endregion
+
     }
 }
