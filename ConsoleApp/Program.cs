@@ -93,5 +93,13 @@ namespace ConsoleApp
 
         #endregion
 
+        #region Filtering
+        private static void FilteringWihtRelatedData()
+        {
+            var samurais = context.Samuraies
+                .Where(s => s.Quotes.Any(q => q.Text.Contains("happy")))
+                .ToList();
+        }
+        #endregion
     }
 }
